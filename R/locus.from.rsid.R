@@ -179,7 +179,7 @@ snps.from.file <- function(file = NULL, dbSNP = NULL, search.genome = NULL, form
     snps$alleles_as_ambig[is.na(snps$alleles_as_ambig)] <- ""
     snps$alleles_as_ambig <- DNAStringSet(snps$alleles_as_ambig)
     snps <- snps[seqnames(snps) != "MT"]
-    seqlevels(snps) <- paste0("chr", seqlevels(snps))
+    seqlevels(snps) <- seqlevels(snps) ### Removed past0("chr", seqlevels(snps)), this allows for unconventional genome
     snps <- change.to.search.genome(snps, search.genome)
     can.ref <- getSeq(search.genome, snps)
     names(can.ref) <- NULL
