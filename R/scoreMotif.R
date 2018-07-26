@@ -780,7 +780,8 @@ plotMB <- function(results, rsid, reverseMotif = TRUE, effect = c("strong", "wea
   result <- result[order(start(result), end(result)), ]
   result <- result[result$effect %in% effect]
   chromosome <- as.character(seqnames(result))[[1]]
-  genome.package <- attributes(result)$genome.package
+  # edited genome package to load the custom BSGenome
+  genome.package <- paste0(attributes(results)$genome.package, "::", attributes(results)$genome.package)
   genome.bsgenome <- eval(parse(text = genome.package))
   distance.to.edge <- max(result[1, ]$snpPos - min(start(result)), max(end(result)) - result[1, ]$snpPos) + 4
   from <- result[1, ]$snpPos - distance.to.edge + 1
